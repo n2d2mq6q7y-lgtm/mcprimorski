@@ -1,0 +1,141 @@
+{% extends 'core/base.html' %}
+{% load i18n %}
+{% get_current_language as CURRENT_LANG %}
+
+{% block content %}
+
+{% if site_settings.show_hero %}
+<div class="hero">
+    {% if CURRENT_LANG == 'en' %}
+        <h1>{{ site_settings.site_name|default:"Primorski Medical Center" }}</h1>
+        <p>Modern medicine. Multidisciplinary approach. Patient-centered care.</p>
+        <p>23 Knyaz N. Nikolaevich St.</p>
+    {% else %}
+        <h1>{{ site_settings.site_name|default:"Медицински център Приморски" }}</h1>
+        <p>Съвременна медицина. Мултидисциплинарен подход. Грижа за пациента.</p>
+        <p>ул. "Княз Н. Николаевич" 23</p>
+    {% endif %}
+</div>
+{% endif %}
+
+<div class="container">
+    <div class="card">
+        <p>{{ site_settings.homepage_intro }}</p>
+
+        {% if CURRENT_LANG == 'en' %}
+            <p>
+                Primorski Medical Center is a modern multidisciplinary clinic dedicated to providing high-quality,
+                accessible, and accountable medical care. Our experienced specialists collaborate closely to deliver
+                comprehensive, individualized care for every patient.
+            </p>
+            <p>
+                We believe modern medicine requires expert knowledge, coordinated work across specialties,
+                precise diagnostics, and personalized treatment.
+            </p>
+
+            <h3>Multidisciplinary care</h3>
+            <p>We offer consultations, diagnostics, and treatment in these key areas:</p>
+            <ul style="columns:2; font-weight:600;">
+                <li>Orthopedics & Traumatology</li>
+                <li>Cardiology</li>
+                <li>Gastroenterology</li>
+                <li>Neurology</li>
+                <li>Endocrinology</li>
+                <li>Vascular Surgery</li>
+            </ul>
+            <p>
+                This range of specialties lets us provide comprehensive care focused on both prevention
+                and treatment of acute and chronic conditions.
+            </p>
+
+            <h3>Our approach</h3>
+            <p>We rely on:</p>
+            <ul>
+                <li>Modern diagnostic and therapeutic methods</li>
+                <li>Proven medical standards and practices</li>
+                <li>Personal attention to every patient</li>
+                <li>Clear communication and trust</li>
+            </ul>
+            <p>Our goal is to deliver care that meets the highest professional and ethical standards.</p>
+
+            <h3>Mission</h3>
+            <p>
+                Our mission is to be the place where patients receive competent medical help, peace of mind,
+                and confidence in their treatment—focused on long-term solutions that improve quality of life
+                and protect health.
+            </p>
+        {% else %}
+            <p>
+                Медицински център Приморски е съвременен мултидисциплинарен медицински център, създаден с мисията
+                да предоставя висококачествена, достъпна и отговорна медицинска грижа. Нашият екип от опитни
+                лекари-специалисти работи в тясно сътрудничество, за да осигури цялостен и индивидуален подход към
+                здравето на всеки пациент.
+            </p>
+            <p>
+                Вярваме, че модерната медицина изисква не само експертни познания, но и координирана работа между
+                различни медицински специалности, прецизна диагностика и персонализирано лечение.
+            </p>
+
+            <h3>Мултидисциплинарна грижа</h3>
+            <p>В МЦ Приморски пациентите получават консултации, диагностика и лечение в следните основни направления:</p>
+            <ul style="columns:2; font-weight:600;">
+                <li>Ортопедия и травматология</li>
+                <li>Кардиология</li>
+                <li>Гастроентерология</li>
+                <li>Неврология</li>
+                <li>Ендокринология</li>
+                <li>Съдова хирургия</li>
+            </ul>
+            <p>
+                Този широк спектър от специалности ни позволява да предложим комплексна медицинска грижа, насочена както към
+                профилактиката, така и към лечението на остри и хронични заболявания.
+            </p>
+
+            <h3>Нашият подход</h3>
+            <p>В основата на нашата работа стоят:</p>
+            <ul>
+                <li>Съвременни диагностични и терапевтични методи</li>
+                <li>Доказани медицински стандарти и практики</li>
+                <li>Персонално отношение и внимание към всеки пациент</li>
+                <li>Ясна комуникация и доверие</li>
+            </ul>
+            <p>Нашата цел е да осигурим медицинска услуга, която отговаря на най-високите професионални и етични стандарти.</p>
+
+            <h3>Мисия</h3>
+            <p>
+                Мисията на Медицински център Приморски е да бъде място, където пациентите получават компетентна медицинска
+                помощ, спокойствие и увереност в лечението си. Стремим се към дългосрочни решения, насочени към подобряване
+                качеството на живот и запазване на здравето.
+            </p>
+        {% endif %}
+    </div>
+
+    {% if site_settings.show_booking_cta %}
+    <br>
+    <div class="card" style="text-align:center;">
+        <h3>{% if CURRENT_LANG == 'en' %}Ready to book?{% else %}Готови сте да запазите час?{% endif %}</h3>
+        <p>{{ site_settings.homepage_intro }}</p>
+        <a href="{% url 'book_appointment' %}" class="btn">{% if CURRENT_LANG == 'en' %}Book now{% else %}Запази час{% endif %}</a>
+    </div>
+    {% endif %}
+
+    <br>
+    <div class="card" style="display:grid; gap:20px; grid-template-columns:repeat(auto-fit,minmax(240px,1fr));">
+        {% if site_settings.show_doctors %}
+        <div>
+            <h3>{% if CURRENT_LANG == 'en' %}Our Doctors{% else %}Нашите лекари{% endif %}</h3>
+            <p>{% if CURRENT_LANG == 'en' %}Meet the specialist team.{% else %}Запознайте се със специалистите.{% endif %}</p>
+            <a class="btn" href="{% url 'about' %}">{% if CURRENT_LANG == 'en' %}View doctors{% else %}Виж лекарите{% endif %}</a>
+        </div>
+        {% endif %}
+        {% if site_settings.show_publications %}
+        <div>
+            <h3>{% if CURRENT_LANG == 'en' %}Publications{% else %}Публикации{% endif %}</h3>
+            <p>{% if CURRENT_LANG == 'en' %}Latest patient-friendly articles.{% else %}Последни статии за пациенти.{% endif %}</p>
+            <a class="btn" href="{% url 'articles' %}">{% if CURRENT_LANG == 'en' %}Read articles{% else %}Виж статиите{% endif %}</a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

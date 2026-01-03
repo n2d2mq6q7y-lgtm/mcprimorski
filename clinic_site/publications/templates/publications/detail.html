@@ -1,0 +1,24 @@
+{% extends 'core/base.html' %}
+{% load i18n %}
+{% get_current_language as CURRENT_LANG %}
+
+{% block content %}
+<div class="container">
+
+    <div class="card">
+        {% if article.image %}
+            <img src="{{ article.image.url }}" style="width:100%; border-radius:16px; margin-bottom:30px;">
+        {% endif %}
+
+        <h1>{{ article.title }}</h1>
+        <p style="opacity:0.6;">
+            {% if CURRENT_LANG == 'en' %}Published on{% else %}Публикувана на{% endif %} {{ article.created_at|date:"d.m.Y" }}
+        </p>
+
+        <div style="margin-top:30px; white-space:pre-line;">
+            {{ article.content }}
+        </div>
+    </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'core/base.html' %}
+{% load i18n %}
+{% get_current_language as CURRENT_LANG %}
+
+{% block content %}
+<div class="hero">
+    <div class="hero-inner">
+        {% if CURRENT_LANG == 'en' %}
+            <h1>Contacts</h1>
+            <p>Address: 23 Knyaz N. Nikolaevich St. • Phone: +359 52 123 456</p>
+        {% else %}
+            <h1>Контакти</h1>
+            <p>Адрес: ул. "Княз Н. Николаевич" 23 • Тел: +359 52 123 456</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

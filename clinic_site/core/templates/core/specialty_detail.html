@@ -1,0 +1,21 @@
+{% extends 'core/base.html' %}
+{% load i18n %}
+{% get_current_language as CURRENT_LANG %}
+{% block content %}
+
+<div class="container">
+    <h1>{{ specialty.name }}</h1>
+
+    {% for doctor in doctors %}
+        <div class="card">
+            <h2>{{ doctor.name }}</h2>
+            <p>{{ doctor.title }}</p>
+            <a href="/about/" class="btn">{% if CURRENT_LANG == 'en' %}View profile{% else %}Виж профил{% endif %}</a>
+        </div>
+        <br>
+    {% empty %}
+        <p>{% if CURRENT_LANG == 'en' %}No doctors available for this specialty.{% else %}Няма налични лекари за тази специалност.{% endif %}</p>
+    {% endfor %}
+</div>
+
+{% endblock %}

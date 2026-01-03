@@ -1,0 +1,15 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+  <h1>{{ title }}</h1>
+  <p>Create appointment windows in bulk for a doctor (e.g., open Mon/Wed/Fri 09:00–12:00 for the next 8 weeks).</p>
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="default" type="submit">Create windows</button>
+  </form>
+
+  <p style="margin-top:20px;">
+    <a href="/admin/doctors/appointmentwindow/">Back to Appointment Windows</a>
+  </p>
+{% endblock %}

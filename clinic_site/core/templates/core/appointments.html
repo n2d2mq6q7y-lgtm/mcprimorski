@@ -1,0 +1,17 @@
+{% extends 'core/base.html' %}
+{% load i18n %}
+{% get_current_language as CURRENT_LANG %}
+
+{% block content %}
+<div class="hero">
+    <div class="hero-inner">
+        {% if CURRENT_LANG == 'en' %}
+            <h1>Appointments</h1>
+            <p>Contact reception to schedule your visit quickly.</p>
+        {% else %}
+            <h1>Запазване на час</h1>
+            <p>Свържете се с рецепция за бързо насрочване на преглед.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

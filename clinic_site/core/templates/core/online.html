@@ -1,0 +1,17 @@
+{% extends 'core/base.html' %}
+{% load i18n %}
+{% get_current_language as CURRENT_LANG %}
+
+{% block content %}
+<div class="hero">
+    <div class="hero-inner">
+        {% if CURRENT_LANG == 'en' %}
+            <h1>Online Consultations</h1>
+            <p>Video consultations with a specialist for quick assessment and guidance.</p>
+        {% else %}
+            <h1>Онлайн консултации</h1>
+            <p>Видео срещи със специалист за бърза оценка и насоки.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

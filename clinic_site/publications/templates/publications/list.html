@@ -1,0 +1,28 @@
+{% extends 'core/base.html' %}
+{% load i18n %}
+{% get_current_language as CURRENT_LANG %}
+
+{% block content %}
+<div class="container">
+    <h1>{% if CURRENT_LANG == 'en' %}Publications{% else %}Публикации{% endif %}</h1>
+    <p>{% if CURRENT_LANG == 'en' %}Educational medical articles for patients.{% else %}Образователни медицински статии за пациенти.{% endif %}</p>
+
+    {% for article in articles %}
+        <div class="card">
+            {% if article.image %}
+                <img src="{{ article.image.url }}" style="width:100%; border-radius:14px; margin-bottom:20px;">
+            {% endif %}
+
+            <h2>{{ article.title }}</h2>
+            <p>{{ article.summary }}</p>
+
+            <a href="{% url 'article_detail' article.pk %}" class="btn">
+                {% if CURRENT_LANG == 'en' %}Read more{% else %}Прочети повече{% endif %}
+            </a>
+        </div>
+        <br>
+    {% empty %}
+        <p>{% if CURRENT_LANG == 'en' %}No publications available yet.{% else %}Все още няма публикувани статии.{% endif %}</p>
+    {% endfor %}
+</div>
+{% endblock %}

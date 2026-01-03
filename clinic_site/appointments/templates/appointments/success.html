@@ -1,0 +1,15 @@
+{% extends 'core/base.html' %}
+{% load i18n %}
+{% get_current_language as CURRENT_LANG %}
+
+{% block content %}
+<div style="text-align:center; padding:100px;">
+    {% if CURRENT_LANG == 'en' %}
+        <h1>Thank you!</h1>
+        <p>Your request has been received. We will contact you for confirmation.</p>
+    {% else %}
+        <h1>Благодарим Ви!</h1>
+        <p>Вашата заявка е получена. Ще се свържем с Вас за потвърждение.</p>
+    {% endif %}
+</div>
+{% endblock %}

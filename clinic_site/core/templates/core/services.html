@@ -1,0 +1,17 @@
+{% extends 'core/base.html' %}
+{% load i18n %}
+{% get_current_language as CURRENT_LANG %}
+
+{% block content %}
+<div class="hero">
+    <div class="hero-inner">
+        {% if CURRENT_LANG == 'en' %}
+            <h1>Services</h1>
+            <p>Orthopedic consultations, imaging diagnostics, rehabilitation, and sports medicine.</p>
+        {% else %}
+            <h1>Услуги</h1>
+            <p>Ортопедични прегледи, образна диагностика, рехабилитация и спортни консултации.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

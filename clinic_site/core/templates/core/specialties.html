@@ -1,0 +1,20 @@
+{% extends 'core/base.html' %}
+{% load i18n %}
+{% get_current_language as CURRENT_LANG %}
+{% block content %}
+
+<div class="container">
+    <h1>{% if CURRENT_LANG == 'en' %}Medical Specialties{% else %}Медицински специалности{% endif %}</h1>
+
+    {% for specialty in specialties %}
+        <div class="card">
+            <h2>{{ specialty.name }}</h2>
+            <a href="{% url 'specialty_detail' specialty.pk %}" class="btn">
+                {% if CURRENT_LANG == 'en' %}View specialists{% else %}Виж специалисти{% endif %}
+            </a>
+        </div>
+        <br>
+    {% endfor %}
+</div>
+
+{% endblock %}

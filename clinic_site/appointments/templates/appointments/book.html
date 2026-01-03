@@ -1,0 +1,88 @@
+{% extends 'core/base.html' %}
+{% load i18n %}
+{% get_current_language as CURRENT_LANG %}
+
+{% block content %}
+<div class="container">
+    <div class="card" style="max-width:700px; margin:auto;">
+        {% if CURRENT_LANG == 'en' %}
+            <h1>Book an appointment</h1>
+            <p>
+                Send a request for a visit.
+                Our team will contact you for confirmation.
+            </p>
+        {% else %}
+            <h1>Запазване на час</h1>
+            <p>
+                Изпратете заявка за преглед.
+                Нашият екип ще се свърже с Вас за потвърждение.
+            </p>
+        {% endif %}
+
+        <form method="post" id="appointmentForm">
+            {% csrf_token %}
+
+            <p>
+                {{ form.specialty.label_tag }}
+                {{ form.specialty }}
+            </p>
+
+            <p>
+                {{ form.doctor.label_tag }}
+                {{ form.doctor }}
+            </p>
+
+            <p>{{ form.patient_name.label_tag }} {{ form.patient_name }}</p>
+            <p>{{ form.phone.label_tag }} {{ form.phone }}</p>
+            <p>{{ form.email.label_tag }} {{ form.email }}</p>
+            <p>{{ form.date.label_tag }} {{ form.date }}</p>
+            <p>{{ form.time.label_tag }} {{ form.time }}</p>
+            <p>{{ form.reason.label_tag }} {{ form.reason }}</p>
+            {{ form.website }}
+
+            <button type="submit" class="btn">{% if CURRENT_LANG == 'en' %}Submit request{% else %}Изпрати заявка{% endif %}</button>
+        </form>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const specialtySelect = document.getElementById("id_specialty");
+    const doctorSelect = document.getElementById("id_doctor");
+
+    specialtySelect.addEventListener("change", function () {
+        const specialtyId = this.value;
+
+        // Clear doctor list
+        doctorSelect.innerHTML = '<option value=\"\">---------</option>';
+
+        if (!specialtyId) return;
+
+        fetch(`/bg/appointments/ajax/load-doctors/?specialty=${specialtyId}`)
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(doctor => {
+                    const option = document.createElement("option");
+                    option.value = doctor.id;
+                    option.textContent = doctor.name;
+                    doctorSelect.appendChild(option);
+                });
+            });
+    });
+
+});
+
+document.addEventListener("DOMContentLoaded", function(){
+  const form = document.getElementById("appointmentForm");
+  if (!form) return;
+  form.addEventListener("submit", function(){
+    const btn = form.querySelector("button[type='submit']");
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = "{% if CURRENT_LANG == 'en' %}Sending...{% else %}Изпращане...{% endif %}";
+    }
+  });
+});
+</script>
+{% endblock %}

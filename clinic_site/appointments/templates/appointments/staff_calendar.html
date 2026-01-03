@@ -1,0 +1,97 @@
+{% extends 'core/base.html' %}
+{% block content %}
+
+<div class="container">
+  <h1>Staff Calendar (Weekly)</h1>
+
+  {% if not doctor %}
+    <p>No doctors found yet.</p>
+  {% else %}
+
+  <div class="card" style="margin-bottom:20px;">
+    <form method="get" style="display:flex; gap:16px; flex-wrap:wrap; align-items:center;">
+      <div>
+        <label><strong>Doctor</strong></label><br>
+        <select name="doctor" onchange="this.form.submit()">
+          {% for d in doctors %}
+            <option value="{{ d.id }}" {% if d.id == doctor.id %}selected{% endif %}>{{ d.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div>
+        <label><strong>Week</strong></label><br>
+        <input type="date" name="week" value="{{ week_start|date:'Y-m-d' }}" onchange="this.form.submit()">
+      </div>
+
+      <div style="margin-left:auto; display:flex; gap:10px;">
+        <a class="btn" style="padding:10px 18px;" href="?doctor={{ doctor.id }}&week={{ prev_week }}">◀ Prev week</a>
+        <a class="btn" style="padding:10px 18px;" href="?doctor={{ doctor.id }}&week={{ next_week }}">Next week ▶</a>
+      </div>
+    </form>
+  </div>
+
+  <div style="display:grid; grid-template-columns:repeat(7, 1fr); gap:14px;">
+    {% for day in days %}
+      <div class="card" style="padding:18px;">
+        <h3 style="margin-top:0;">
+          {{ day.date|date:"D" }}<br>
+          <span style="opacity:0.7; font-size:14px;">{{ day.date|date:"d.m.Y" }}</span>
+        </h3>
+
+        {% if day.slots %}
+          {% for s in day.slots %}
+            {% if s.appointment %}
+              <a href="/admin/appointments/appointment/{{ s.appointment.id }}/change/"
+                 style="display:block; padding:10px; border-radius:12px; margin-bottom:10px; text-decoration:none; background:rgba(255,0,0,0.06); color:#111;">
+                <strong>{{ s.time }}</strong><br>
+                <span style="font-size:14px;">
+                  {{ s.appointment.patient_name }}<br>
+                  {{ s.appointment.phone }}<br>
+                  <em style="opacity:0.7;">{{ s.appointment.status }}</em>
+                </span>
+                <div style="margin-top:6px; font-size:12px; opacity:0.7;">Click to edit in admin</div>
+              </a>
+
+            {% elif s.blocked %}
+              <div style="padding:10px; border-radius:12px; margin-bottom:10px; background:rgba(0,0,0,0.06);">
+                <strong>{{ s.time }}</strong><br>
+                <span style="font-size:14px; opacity:0.75;">Blocked</span>
+
+                <form method="post" action="/staff/calendar/unblock/" style="margin-top:8px;">
+                  {% csrf_token %}
+                  <input type="hidden" name="doctor_id" value="{{ doctor.id }}">
+                  <input type="hidden" name="date" value="{{ day.date|date:'Y-m-d' }}">
+                  <input type="hidden" name="time" value="{{ s.time }}">
+                  <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                  <button type="submit" class="btn" style="padding:8px 14px;">Unblock</button>
+                </form>
+              </div>
+
+            {% else %}
+              <div style="padding:10px; border-radius:12px; margin-bottom:10px; background:rgba(0,180,216,0.08);">
+                <strong>{{ s.time }}</strong><br>
+                <span style="font-size:14px; opacity:0.75;">Open</span>
+
+                <form method="post" action="/staff/calendar/block/" style="margin-top:8px;">
+                  {% csrf_token %}
+                  <input type="hidden" name="doctor_id" value="{{ doctor.id }}">
+                  <input type="hidden" name="date" value="{{ day.date|date:'Y-m-d' }}">
+                  <input type="hidden" name="time" value="{{ s.time }}">
+                  <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                  <button type="submit" class="btn" style="padding:8px 14px;">Block</button>
+                </form>
+              </div>
+            {% endif %}
+          {% endfor %}
+        {% else %}
+          <p style="opacity:0.7;">No open windows.</p>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+
+  {% endif %}
+</div>
+
+{% endblock %}
