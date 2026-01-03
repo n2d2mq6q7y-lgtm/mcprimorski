@@ -150,5 +150,3 @@ CACHES = {
         "LOCATION": "mc-primorski-cache",
     }
 }
-
-STATIC_ROOT = BASE_DIR / "staticfiles"

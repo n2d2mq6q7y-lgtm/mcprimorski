@@ -1,220 +1,24 @@
-{% load static i18n %}
+{% load static %}
 <!DOCTYPE html>
-<html lang="{{ CURRENT_LANG|default:'bg' }}">
+<html lang="bg">
 <head>
-    <meta charset="UTF-8">
-    <title>{{ site_settings.site_name|default:"МЦ Приморски" }}</title>
-    <style>
-:root {
-    --primary: {{ site_settings.primary_color|default:"#0077b6" }};
-    --secondary: #00b4d8;
-    --dark: #023047;
-    --light: #f8f9fb;
-    --glass: rgba(255,255,255,0.75);
-}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>МЦ Приморски</title>
 
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    font-family: 'Segoe UI', 'Inter', Arial, sans-serif;
-    background: var(--light);
-    color: #222;
-    line-height: 1.6;
-}
-
-/* HEADER */
-.header {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    background: var(--glass);
-    backdrop-filter: blur(14px);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 16px 48px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
-}
-
-.header-left {
-    display: flex;
-    align-items: center;
-}
-
-.logo {
-    height: 84px;
-    margin-right: 14px;
-}
-
-.clinic-name {
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--dark);
-}
-
-/* NAV */
-.nav a {
-    margin: 0 14px;
-    text-decoration: none;
-    font-weight: 600;
-    color: var(--primary);
-    position: relative;
-    transition: all 0.3s ease;
-}
-
-.nav a::after {
-    content: '';
-    position: absolute;
-    bottom: -6px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: var(--secondary);
-    transition: width 0.3s ease;
-}
-
-.nav a:hover::after {
-    width: 100%;
-}
-
-/* HERO */
-.hero {
-    padding: 120px 40px;
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    color: white;
-    text-align: center;
-}
-
-.hero h1 {
-    font-size: 48px;
-    margin-bottom: 20px;
-}
-
-.hero p {
-    font-size: 20px;
-    max-width: 800px;
-    margin: auto;
-    opacity: 0.95;
-}
-
-/* CONTAINERS */
-.container {
-    max-width: 1200px;
-    margin: auto;
-    padding: 80px 40px;
-}
-
-/* CARDS */
-.card {
-    background: white;
-    border-radius: 20px;
-    padding: 40px;
-    box-shadow: 0 30px 60px rgba(0,0,0,0.08);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 40px 80px rgba(0,0,0,0.12);
-}
-
-/* BUTTONS */
-.btn {
-    display: inline-block;
-    padding: 14px 36px;
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    color: white;
-    text-decoration: none;
-    font-weight: 700;
-    border-radius: 30px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 30px rgba(0,180,216,0.4);
-}
-
-/* FOOTER */
-.footer {
-    background: #021f2f;
-    color: #cfd8dc;
-    padding: 50px;
-    text-align: center;
-    margin-top: 80px;
-}
-
-@keyframes fadeUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.card {
-    animation: fadeUp 0.6s ease both;
-}
-    </style>
+  <link rel="stylesheet" href="{% static 'core/style.css' %}">
 </head>
 <body>
-{% get_current_language as CURRENT_LANG %}
 
-<header class="header" style="height: {{ site_settings.header_height|default:80 }}px; {% if site_settings.sticky_header %}position:sticky; top:0;{% endif %} background:white;">
-    <div class="header-left">
-        {% if site_settings.logo %}
-            <img src="{{ site_settings.logo.url }}" alt="{{ site_settings.site_name }}" class="logo" style="width: {{ site_settings.logo_width|default:140 }}px; height:auto;">
-        {% else %}
-            <img src="{% static 'core/logo.png' %}" alt="{{ site_settings.site_name }}" class="logo" style="width: {{ site_settings.logo_width|default:140 }}px; height:auto;">
-        {% endif %}
-        <span class="clinic-name">{% if CURRENT_LANG == 'en' %}{{ site_settings.site_name|default:"Primorski Medical Center" }}{% else %}{{ site_settings.site_name|default:"МЦ Приморски" }}{% endif %}</span>
-    </div>
-
-    <nav class="nav">
-        <a href="{% url 'home' %}">{% if CURRENT_LANG == 'en' %}Home{% else %}Начало{% endif %}</a>
-        <a href="{% url 'about' %}">{% if CURRENT_LANG == 'en' %}About{% else %}За нас{% endif %}</a>
-        <a href="{% url 'services' %}">{% if CURRENT_LANG == 'en' %}Services{% else %}Услуги{% endif %}</a>
-        <a href="{% url 'book_appointment' %}">{% if CURRENT_LANG == 'en' %}Appointments{% else %}Запазване на час{% endif %}</a>
-        <a href="{% url 'articles' %}">{% if CURRENT_LANG == 'en' %}Publications{% else %}Публикации{% endif %}</a>
-        <a href="{% url 'online' %}">{% if CURRENT_LANG == 'en' %}Online Consultations{% else %}Онлайн консултации{% endif %}</a>
-        <a href="{% url 'contacts' %}">{% if CURRENT_LANG == 'en' %}Contacts{% else %}Контакти{% endif %}</a>
-        {% if user.is_staff %}
-            <a href="/staff/calendar/">{% if CURRENT_LANG == 'en' %}Calendar{% else %}Календар{% endif %}</a>
-        {% endif %}
-    </nav>
-
-    <div class="lang-switch" style="display:flex; gap:8px;">
-        <form action="{% url 'set_language' %}" method="post" style="margin:0;">
-            {% csrf_token %}
-            <input type="hidden" name="next" value="{{ request.path }}">
-            <button type="submit" name="language" value="bg" style="background:none; border:none; cursor:pointer; font-weight:bold; color:#555;">BG</button>
-        </form>
-        <span>|</span>
-        <form action="{% url 'set_language' %}" method="post" style="margin:0;">
-            {% csrf_token %}
-            <input type="hidden" name="next" value="{{ request.path }}">
-            <button type="submit" name="language" value="en" style="background:none; border:none; cursor:pointer; font-weight:bold; color:#555;">EN</button>
-        </form>
-    </div>
+<header>
+  <div class="container">
+    <strong>МЦ Приморски</strong>
+  </div>
 </header>
 
-{% block content %}{% endblock %}
-
-<footer class="footer">
-    <p>{{ site_settings.footer_text|default:"© Медицински център Приморски" }}</p>
-    {% if site_settings.clinic_phone %}
-        <p>📞 {{ site_settings.clinic_phone }}</p>
-    {% endif %}
-    {% if site_settings.clinic_email %}
-        <p>✉ {{ site_settings.clinic_email }}</p>
-    {% endif %}
-</footer>
+<main>
+  {% block content %}{% endblock %}
+</main>
 
 </body>
 </html>
