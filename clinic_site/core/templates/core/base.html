@@ -10,9 +10,20 @@
 </head>
 <body>
 
-<header>
-  <div class="container">
-    <strong>МЦ Приморски</strong>
+<header class="site-header">
+  <div class="container header-inner">
+    <div class="logo-wrap">
+      <img src="{% static 'core/logo.png' %}" alt="МЦ Приморски" class="logo">
+      <span class="clinic-name">МЦ Приморски</span>
+    </div>
+
+    <nav class="main-nav">
+      <a href="{% url 'home' %}">Начало</a>
+      <a href="{% url 'about' %}">За нас</a>
+      <a href="{% url 'services' %}">Услуги</a>
+      <a href="{% url 'appointments' %}">Записване</a>
+      <a href="{% url 'contacts' %}">Контакти</a>
+    </nav>
   </div>
 </header>
 
