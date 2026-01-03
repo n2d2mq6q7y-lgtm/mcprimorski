@@ -1,17 +1,42 @@
-{% extends 'core/base.html' %}
+{% extends "core/base.html" %}
 {% load i18n %}
-{% get_current_language as CURRENT_LANG %}
 
 {% block content %}
-<div class="hero">
-    <div class="hero-inner">
-        {% if CURRENT_LANG == 'en' %}
-            <h1>Services</h1>
-            <p>Orthopedic consultations, imaging diagnostics, rehabilitation, and sports medicine.</p>
-        {% else %}
-            <h1>Услуги</h1>
-            <p>Ортопедични прегледи, образна диагностика, рехабилитация и спортни консултации.</p>
-        {% endif %}
+<section class="page-hero">
+  <div class="container">
+    <h1>{% trans "Услуги" %}</h1>
+    <p class="lead">{% trans "Диагностика, лечение и проследяване – организирани по специалности." %}</p>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="cards-grid">
+      <div class="card">
+        <h3>{% trans "Ортопедия и травматология" %}</h3>
+        <p>{% trans "Прегледи, ехография на ОДА, инжекционни терапии, PRP, травми, артрози, следоперативен контрол." %}</p>
+      </div>
+      <div class="card">
+        <h3>{% trans "Кардиология" %}</h3>
+        <p>{% trans "Консултации, ЕКГ, оценка на риск, проследяване на терапия и контролни прегледи." %}</p>
+      </div>
+      <div class="card">
+        <h3>{% trans "Гастроентерология" %}</h3>
+        <p>{% trans "Консултации, диагностика и терапевтичен план при стомашно-чревни оплаквания." %}</p>
+      </div>
+      <div class="card">
+        <h3>{% trans "Неврология" %}</h3>
+        <p>{% trans "Консултации при болка, световъртеж, изтръпване, главоболие и проследяване." %}</p>
+      </div>
+      <div class="card">
+        <h3>{% trans "Ендокринология" %}</h3>
+        <p>{% trans "Оценка и контрол при диабет, тиреоидни заболявания, метаболитни нарушения." %}</p>
+      </div>
+      <div class="card">
+        <h3>{% trans "Съдова хирургия" %}</h3>
+        <p>{% trans "Консултации при съдови оплаквания и проследяване по преценка на специалист." %}</p>
+      </div>
     </div>
-</div>
+  </div>
+</section>
 {% endblock %}

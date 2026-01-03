@@ -1,15 +1,69 @@
 {% extends "core/base.html" %}
+{% load i18n %}
 
 {% block content %}
 <section class="hero">
   <div class="container">
-    <h1>МЦ Приморски</h1>
+    <div class="hero-grid">
+      <div>
+        <span class="badge">{% trans "Мултидисциплинарен медицински център" %}</span>
+        <h1>{% trans "МЦ Приморски" %}</h1>
+        <p class="lead">
+          {% trans "Съвременна диагностика и лечение с фокус върху сигурност, качество и индивидуален подход. Екип от доказани специалисти – на едно място." %}
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn primary" href="{% url 'appointments:book' %}">{% trans "Запази час" %}</a>
+          <a class="btn ghost" href="{% url 'contacts' %}">{% trans "Контакти" %}</a>
+        </div>
+
+        <div class="hero-highlights">
+          <div class="pill">{% trans "Ортопедия" %}</div>
+          <div class="pill">{% trans "Кардиология" %}</div>
+          <div class="pill">{% trans "Гастроентерология" %}</div>
+          <div class="pill">{% trans "Неврология" %}</div>
+          <div class="pill">{% trans "Ендокринология" %}</div>
+          <div class="pill">{% trans "Съдова хирургия" %}</div>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <h3>{% trans "Бърз достъп" %}</h3>
+        <ul class="quick-links">
+          <li><a href="{% url 'appointments:book' %}">{% trans "Записване за преглед" %}</a></li>
+          <li><a href="{% url 'services' %}">{% trans "Услуги и направления" %}</a></li>
+          <li><a href="{% url 'about' %}">{% trans "Екип и квалификации" %}</a></li>
+          <li><a href="{% url 'articles' %}">{% trans "Публикации за пациенти" %}</a></li>
+        </ul>
+        <p class="muted">
+          {% trans "При спешни състояния се обадете на 112." %}
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <h2>{% trans "Нашата мисия" %}</h2>
     <p>
-      Съвременен медицински център, обединяващ специалисти по ортопедия,
-      кардиология, гастроентерология, неврология, ендокринология и
-      съдова хирургия – с фокус върху качество, сигурност и индивидуален
-      подход към всеки пациент.
+      {% trans "Да предоставим ясни решения, адекватни срокове и човешко отношение – от първата консултация до последващия контрол. Работим по съвременни стандарти и доказани протоколи." %}
     </p>
+
+    <div class="feature-grid">
+      <div class="feature">
+        <h3>{% trans "Сигурност" %}</h3>
+        <p>{% trans "Стандартизирани процеси, внимателна преценка и проследяване." %}</p>
+      </div>
+      <div class="feature">
+        <h3>{% trans "Точност" %}</h3>
+        <p>{% trans "Фокус върху правилната диагноза и план за лечение." %}</p>
+      </div>
+      <div class="feature">
+        <h3>{% trans "Достъпност" %}</h3>
+        <p>{% trans "Онлайн записване и ясна комуникация с пациента." %}</p>
+      </div>
+    </div>
   </div>
 </section>
 {% endblock %}

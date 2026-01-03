@@ -1,35 +1,22 @@
-{% extends 'core/base.html' %}
+{% extends "core/base.html" %}
 {% load i18n %}
-{% get_current_language as CURRENT_LANG %}
+
 {% block content %}
+<section class="page-hero">
+  <div class="container">
+    <h1>{% trans "За нас" %}</h1>
+    <p class="lead">{% trans "Екип от специалисти с реална клинична практика и фокус върху доказана медицина." %}</p>
+  </div>
+</section>
 
-<div class="container">
-    <h1 style="text-align: center;">
-        {% if CURRENT_LANG == 'en' %}Our Team{% else %}Нашият екип{% endif %}
-    </h1>
-    <br>
-    {% for doctor in doctors %}
-    <div class="card" style="margin-bottom: 40px;">
-        {% if doctor.photo %}
-            <img src="{{ doctor.photo.url }}"
-                 style="width:180px; border-radius:16px; float:right; margin-left:30px;">
-        {% endif %}
+<section>
+  <div class="container">
+    <h2>{% trans "Екип" %}</h2>
+    <p class="muted">{% trans "Информацията по-долу се поддържа от администраторския панел." %}</p>
 
-        <h2>{{ doctor.name }}</h2>
-        <strong>{{ doctor.title }}</strong>
-
-        <p>{{ doctor.bio }}</p>
-
-        <h4>{% if CURRENT_LANG == 'en' %}Education{% else %}Образование{% endif %}</h4>
-        <p>{{ doctor.education }}</p>
-
-        <h4>{% if CURRENT_LANG == 'en' %}Qualifications{% else %}Квалификации{% endif %}</h4>
-        <p>{{ doctor.qualifications }}</p>
-
-        <h4>{% if CURRENT_LANG == 'en' %}Biography{% else %}Биография{% endif %}</h4>
-        <p>{{ doctor.experience }}</p>
+    <div class="notice">
+      {% trans "Добавете и редактирайте профилите на лекарите от Admin → Doctors." %}
     </div>
-    {% endfor %}
-</div>
-
+  </div>
+</section>
 {% endblock %}
